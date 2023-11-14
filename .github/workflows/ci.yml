@@ -15,7 +15,10 @@ jobs:
 
       - name: Read CURRENT_CHANGELOG.md file
         id: getversion
-        run: echo "version=\"$(cat ./CURRENT_CHANGELOG.md)\"<<EOF" >> $GITHUB_OUTPUT
+        run: |
+          echo 'changelog=<EOF' >> $GITHUB_OUTPUT
+          cat ./CURRENT_CHANGELOG.md >> $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_OUTPUT
 
       - name: Discord notification
         env:
