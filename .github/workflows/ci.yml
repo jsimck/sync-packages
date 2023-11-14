@@ -16,7 +16,7 @@ jobs:
       - name: Read CURRENT_CHANGELOG.md file
         id: getversion
         run: |
-          echo 'changelog=<EOF' >> $GITHUB_OUTPUT
+          echo 'changelog= << EOF' >> $GITHUB_OUTPUT
           cat ./CURRENT_CHANGELOG.md >> $GITHUB_OUTPUT
           echo 'EOF' >> $GITHUB_OUTPUT
 
