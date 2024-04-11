@@ -1,5 +1,11 @@
 # sync-packages
 
+## 0.1.1
+
+### Patch Changes
+
+- 0f84151: Fixed some package.json inconsitencies
+
 ## 0.1.0
 
 ### Minor Changes
