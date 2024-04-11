@@ -1,4 +1,4 @@
-# pkg-link
+# sync-packages
 
 Utility script for watching a package (monorepo workspaces) files and syncing (copying) them to another directory. This is usefull in situations when npm link locally fails (due to dependencies) or when you want to test a package in a different project.
 
@@ -6,7 +6,7 @@ Utility script for watching a package (monorepo workspaces) files and syncing (c
 This simple CLI accepts a single argument, the path to the target package. It will watch current directory workspace and copy changed packages into destination folder.
 
 ```sh
-npx pkg-link ../../target-package
+npx sync-packages ../../target-package
 ```
 
 ## Contribution guide

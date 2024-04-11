@@ -1,5 +1,5 @@
 ---
-"pkg-link": minor
+"sync-packages": minor
 ---
 
 Initial release

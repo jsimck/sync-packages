@@ -90,8 +90,8 @@ export function throttle(fn, delay) {
 }
 
 /**
- * Create a snippet for pkg-link command.
+ * Create a snippet for sync-packages command.
  */
 export function createSnipet(destPath, targets) {
-  return `npx pkg-link ${destPath} -t ${targets.join(' ')}`;
+  return `npx sync-packages ${destPath} -t ${targets.join(' ')}`;
 }

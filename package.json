@@ -1,11 +1,11 @@
 {
-  "name": "pkg-link",
+  "name": "sync-packages",
   "version": "0.0.0",
   "description": "A utility for watching and copying packages (monorepo workspaces) to target directory, without symlinks.",
   "main": "index.js",
   "type": "module",
   "bin": {
-    "pkg-link": "./bin/sync.js"
+    "sync-packages": "./bin/sync.js"
   },
   "scripts": {
     "changeset": "changeset add",

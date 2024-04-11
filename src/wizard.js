@@ -18,7 +18,7 @@ function filterPackages(packages, targets) {
 }
 
 /**
- * Wizard for pkg-link.
+ * Wizard for sync-packages.
  */
 export async function startWizard(inputPath, options) {
   // Resolve cwd package
@@ -43,7 +43,7 @@ export async function startWizard(inputPath, options) {
   }
 
   // Start wizard when some params are missing
-  intro(color.inverse(' Welcome to pkg-link! '));
+  intro(color.inverse(' Welcome to sync-packages! '));
 
   // Get path
   const destPath =

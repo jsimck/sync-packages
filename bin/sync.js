@@ -6,7 +6,7 @@ import { watch } from '../src/watch.js';
 import { startWizard } from '../src/wizard.js';
 
 program
-  .name('pkg-link')
+  .name('sync-packages')
   .description(
     'A utility for watching and copying packages (monorepo workspaces) to target directory, without symlinks.',
   )
