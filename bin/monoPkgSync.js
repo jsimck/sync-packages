@@ -1,59 +1,24 @@
 #!/usr/bin/env node
 
-import nodePath from 'node:path';
-import { argv } from 'node:process';
-import { existsSync } from 'node:fs';
-import { globby } from 'globby';
-import inquirer from 'inquirer';
-import { getImportMetaDirname, parsePkgJson } from '../src/utils.js';
-import { resolveWorkspaces, watch } from '../src/process.js';
+import { program } from 'commander';
 
-const { dirname, filename } = getImportMetaDirname(import.meta);
-const cwd = process.cwd();
+import { watch } from '../src/watch.js';
+import { startWizard } from '../src/wizard.js';
 
-if (argv.length < 3) {
-  console.error('Missing target path');
-  console.error(`Usage: npx @jsimck/mono-pkg-sync <path to target>`);
-  process.exit(1);
-}
+program
+  .name('mono-pkg-sync')
+  .argument('[path]', 'Path to the destination app root folder')
+  .option('-t, --targets [targets...]', 'Package names to sync')
+  .option('-v, --verbose', 'Print additional information during watch')
+  .action(async (inputPath, options) => {
+    // Start wizard to get missing options
+    const { packages, ...restOptions } = await startWizard(inputPath, options);
 
-const targetDir = nodePath.resolve(dirname, argv[2]);
+    // Start watcher
+    await watch(packages, {
+      ...options,
+      ...restOptions,
+    });
+  });
 
-if (!existsSync(targetDir)) {
-  console.error(`Target directory ${targetDir} does not exist`);
-  process.exit(1);
-}
-
-const { workspaces } = parsePkgJson(process.cwd());
-
-if (!Array.isArray(workspaces) || workspaces.length === 0) {
-  console.error('This CLI only works on monorepos with workspaces ' +
-    'there are no workspacs defined in your package.json');
-  process.exit(1);
-}
-
-const packages = await resolveWorkspaces(workspaces, cwd);
-const answers = await inquirer.prompt({
-  name: 'packages',
-  message: 'Choose which packages you want to sync',
-  type: 'checkbox',
-  pageSize: 20,
-  choices: packages.map((pkg) => ({
-    name: pkg.pkgJson.name,
-    value: pkg,
-    checked: false
-  }))
-});
-
-if (answers.packages.length === 0) {
-  console.log('No packages selected');
-  process.exit(0);
-}
-
-// Watch for changes
-try {
-  await watch(answers.packages, { cwd, targetDir });
-} catch (error) {
-  console.error(error.message);
-  process.exit(1);
-}
+program.parse(process.argv);

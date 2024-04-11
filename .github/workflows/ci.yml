@@ -1,31 +1,38 @@
-name: Test
+name: CI
 
 on:
-  workflow_dispatch:
   push:
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+    branches: [main]
+    tags:
+      - '*'
+  pull_request:
+    branches: [main]
 
 jobs:
-  prepare:
+  ci:
+    name: CI
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Repo
+        uses: actions/checkout@v4
 
-      - name: Read CURRENT_CHANGELOG.md file
-        id: getversion
-        run: |
-          echo 'changelog=$(<< EOF' >> $GITHUB_OUTPUT
-          cat ./CURRENT_CHANGELOG.md >> $GITHUB_OUTPUT
-          echo 'EOF)' >> $GITHUB_OUTPUT
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
 
-      - name: Discord notification
+      - name: Install dependencies
+        shell: bash
+        run: npm ci --ignore-scripts
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Deploy
+        if: endsWith(github.ref, 'main')
         env:
-          DISCORD_EMBEDS: |
-            [
-              {
-                "timestamp": "${{ steps.getversion.outputs.version }}",
-              }
-            ]
-        run: echo $DISCORD_EMBEDS
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx changeset publish --no-git-tag
