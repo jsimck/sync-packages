@@ -90,8 +90,8 @@ export function throttle(fn, delay) {
 }
 
 /**
- * Create a snippet for mono-pkg-sync command.
+ * Create a snippet for pkg-link command.
  */
 export function createSnipet(destPath, targets) {
-  return `npx mono-pkg-sync ${destPath} -t ${targets.join(' ')}`;
+  return `npx pkg-link ${destPath} -t ${targets.join(' ')}`;
 }

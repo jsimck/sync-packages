@@ -18,7 +18,7 @@ function filterPackages(packages, targets) {
 }
 
 /**
- * Wizard for mono-pkg-sync.
+ * Wizard for pkg-link.
  */
 export async function startWizard(inputPath, options) {
   // Resolve cwd package
@@ -43,7 +43,7 @@ export async function startWizard(inputPath, options) {
   }
 
   // Start wizard when some params are missing
-  intro(color.inverse(' Welcome to mono-pkg-sync! '));
+  intro(color.inverse(' Welcome to pkg-link! '));
 
   // Get path
   const destPath =
