@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "bin": {
-    "sync-packages": "./bin/sync.js"
+    "sync-packages": "bin/sync.js"
   },
   "author": "Jan Šimeček",
   "license": "MIT",
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jsimck/sync-packages"
+    "url": "git+https://github.com/jsimck/sync-packages.git"
   },
   "scripts": {
     "changeset": "changeset add",
