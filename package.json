@@ -7,6 +7,16 @@
   "bin": {
     "sync-packages": "./bin/sync.js"
   },
+  "author": "Jan Šimeček",
+  "license": "MIT",
+  "homepage": "https://github.com/jsimck/sync-packages",
+  "bugs": {
+    "url": "https://github.com/jsimck/sync-packages/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jsimck/sync-packages"
+  },
   "scripts": {
     "changeset": "changeset add",
     "lint": "ESLINT_USE_FLAT_CONFIG=true eslint -c eslint.config.js './**/*.{js,ts,jsx,tsx,cjs,mjs}'",
@@ -23,8 +33,6 @@
     "package sync",
     "package watch"
   ],
-  "author": "Jan Šimeček",
-  "license": "ISC",
   "dependencies": {
     "@clack/prompts": "^0.7.0",
     "chokidar": "^3.5.3",
