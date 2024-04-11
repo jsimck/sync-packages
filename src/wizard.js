@@ -69,11 +69,11 @@ export async function startWizard(inputPath, options) {
 
   // Get package targets
   const targets = options.targets?.length
-    ? filterPackages(packages, options.targets)
+    ? options.targets
     : await multiselect({
         message: 'Select additional tools.',
         options: packages.map(pkg => ({
-          value: pkg,
+          value: pkg.pkgJson.name,
           label: pkg.pkgJson.name,
         })),
         required: true,
@@ -85,12 +85,14 @@ export async function startWizard(inputPath, options) {
     return process.exit(0);
   }
 
+  const filteredPackages = filterPackages(packages, targets);
+
   // Provide snippet after finishing wizard
   const shouldContinue = await confirm({
     message: `Before finishing, copy this snippet for faster reuse\n\n${color.cyan(
       createSnipet(
         destPath,
-        targets.map(pkg => pkg.pkgJson.name),
+        filteredPackages.map(pkg => pkg.pkgJson.name),
       ),
     )}\n`,
     active: 'Continue',
@@ -107,7 +109,7 @@ export async function startWizard(inputPath, options) {
   outro(`You're all set!`);
 
   return {
-    packages,
+    packages: filteredPackages,
     destPath,
     targets,
   };

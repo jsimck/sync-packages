@@ -1,6 +1,6 @@
 {
   "name": "sync-packages",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A utility for watching and copying packages (monorepo workspaces) to target directory, without symlinks.",
   "main": "index.js",
   "type": "module",
