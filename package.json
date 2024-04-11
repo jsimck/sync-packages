@@ -20,7 +20,8 @@
   "scripts": {
     "changeset": "changeset add",
     "lint": "ESLINT_USE_FLAT_CONFIG=true eslint -c eslint.config.js './**/*.{js,ts,jsx,tsx,cjs,mjs}'",
-    "lint:fix": "npm run lint -- --fix"
+    "lint:fix": "npm run lint -- --fix",
+    "release": "utima release -d ''"
   },
   "keywords": [
     "monorepo",
@@ -35,6 +36,7 @@
   ],
   "dependencies": {
     "@clack/prompts": "^0.7.0",
+    "@utima/scripts": "^0.1.3",
     "chokidar": "^3.5.3",
     "commander": "^12.0.0",
     "globby": "^13.2.2",
